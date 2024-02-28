@@ -8,4 +8,5 @@
 - stacking cubes under the player;
 - loss of cubes when colliding with obstacles;
 - infinite level generation.
-  Additionally, added camera shaking when colliding with obstacles, the effect of stacking a new cube, and the implementation of ragdoll.
+  
+Additionally, added camera shaking when colliding with obstacles, the effect of stacking a new cube, and the implementation of ragdoll.
