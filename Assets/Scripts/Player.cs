@@ -4,22 +4,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Animator animator;
-    public LinkedList<GameObject> _list = new LinkedList<GameObject>();
-    [SerializeField] public GameObject playerPickup;
-    [SerializeField] public GameObject stickman;
+    private LinkedList<GameObject> _list;
+    [SerializeField] private GameObject playerPickup;
+    [SerializeField] private GameObject stickman;
     [SerializeField] private float gravity = 9.8f;
     [SerializeField] private GameObject collectCubeText;
     private float height = 1;
+    private Rigidbody stickmanRB;
+    private Rigidbody playerPickupRB;
 
     private void Awake()
     {
         animator = stickman.GetComponent<Animator>();
+        _list = new LinkedList<GameObject>();
+        stickmanRB = stickman.GetComponent<Rigidbody>();
+        playerPickupRB = playerPickup.GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        stickman.GetComponent<Rigidbody>().AddForce(Vector3.down * gravity);
-        playerPickup.GetComponent<Rigidbody>().AddForce(Vector3.down * gravity);
+        stickmanRB.AddForce(Vector3.down * gravity);
+        playerPickupRB.GetComponent<Rigidbody>().AddForce(Vector3.down * gravity);
     }
 
     public void AddPickup(Collider collision)
@@ -38,7 +43,7 @@ public class Player : MonoBehaviour
             collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
             GameObject pickup = Instantiate(playerPickup, new Vector3(stickman.transform.position.x, 0, 0), Quaternion.identity);
-            GameObject collectText = Instantiate(collectCubeText, new Vector3(stickman.transform.position.x, stickman.transform.position.y, 0), Quaternion.identity);
+            Instantiate(collectCubeText, new Vector3(stickman.transform.position.x, stickman.transform.position.y, 0), Quaternion.identity);
             _list.AddLast(pickup);
 
             UpdateHeight();
@@ -52,9 +57,19 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Jump");
         }
     }
-    public void UpdateHeight() => height = _list.Count + 1f;
+    public void UpdateHeight()
+    {
+        height = _list.Count + 1f;
+    }
 
     public float GetHeight() => height;
+
+    public LinkedList<GameObject> GetList() { return _list; }
+
+    public void RemoveFromList(GameObject go)
+    {
+        _list.Remove(go);
+    }
 
     public void Reset()
     {

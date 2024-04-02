@@ -25,20 +25,12 @@ public class PickupPlayer : MonoBehaviour
             }
         }
     }
-    public void Destroy()
-    {
-        if (eliminated)
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public void Eliminate()
     {
         TargetPoint();
         eliminated = true;
     }
-    public bool GetEliminated() => eliminated;
     private void TargetPoint()
     {
         currentPoint = transform.position;

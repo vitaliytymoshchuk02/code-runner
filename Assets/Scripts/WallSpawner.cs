@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WallSpawner : MonoBehaviour
@@ -10,11 +8,13 @@ public class WallSpawner : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Vector3 firstWallPosition = new Vector3(0,0,50);
     [SerializeField] private Vector3 secondWallPosition = new Vector3(0,0,80);
-    private float maxPossibleHeight;
+    private float possibleHeight;
+    private float maxHeight = 5f;
+    private float addition = 2f;
 
-    void updateMaxPossibleHeight()
+    void updatePossibleHeight()
     {
-        maxPossibleHeight = player.GetHeight() + 2f;
+        possibleHeight = player.GetHeight() + addition;
     }
 
     public void Reset()
@@ -63,9 +63,9 @@ public class WallSpawner : MonoBehaviour
 
     private void SpawnLine(float x, float z)
     {
-        updateMaxPossibleHeight();
-        float size = Random.Range(1, maxPossibleHeight);
-        if(size >5) size = 5;
+        updatePossibleHeight();
+        float size = Random.Range(1, possibleHeight);
+        if(size > maxHeight) size = maxHeight;
         int y = 0;
         for(int i = 0; i < size; i++)
         {

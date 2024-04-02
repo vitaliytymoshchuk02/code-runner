@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,14 +8,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pickup;
     [SerializeField] private TextMeshProUGUI fail;
     [SerializeField] private TextMeshProUGUI hold;
-    [SerializeField] public GameObject button;
-    [SerializeField] public TextMeshProUGUI buttonText;
-    [SerializeField] public Spawner spawner;
-    [SerializeField] public WallSpawner wallSpawner;
-    [SerializeField] public PickupSpawner pickupSpawner;
-    [SerializeField] public InputController inputController;
+    [SerializeField] private GameObject button;
+    [SerializeField] private TextMeshProUGUI buttonText;
+    [SerializeField] private Spawner spawner;
+    [SerializeField] private WallSpawner wallSpawner;
+    [SerializeField] private PickupSpawner pickupSpawner;
+    [SerializeField] private InputController inputController;
     [SerializeField] private CameraShake mainCamera;
     [SerializeField] private RagdollActivation ragdollActivation;
+    private float offset = 0.501f;
     public enum State { Pause, Play, Lost }
     private State state = State.Pause;
 
@@ -43,6 +39,11 @@ public class GameManager : MonoBehaviour
         if (state == State.Lost)
         {
             SceneManager.LoadScene(0, LoadSceneMode.Single);
+
+            /* the commented code is responsible for manually reloading the level, 
+             which does not provide any advantages at this stage of development, 
+             so it is replaced by the LoadScene method */
+
             /*ObjectMovement[] prefabs = FindObjectsOfType<ObjectMovement>();
             for (int i = 0; i < prefabs.Length; i++)
             {
@@ -79,13 +80,13 @@ public class GameManager : MonoBehaviour
     public void RunIntoObstacle(GameObject go, Collision collision)
     {
         StartCoroutine(mainCamera.Shake());
-        //Handheld.Vibrate();
+        Handheld.Vibrate();
 
         if (go.gameObject.tag == "Player")
         {
             GameOver();
         }
-        else if (go.transform.position.y <= (collision.gameObject.transform.position.y + 0.501f))
+        else if (go.transform.position.y <= (collision.gameObject.transform.position.y + offset))
         {
             CutPickups(go);
             player.UpdateHeight();
@@ -128,9 +129,9 @@ public class GameManager : MonoBehaviour
 
     void CutPickups(GameObject go)
     {
-        if (player._list.Contains(go))
+        if (player.GetList().Contains(go))
         {
-            player._list.Remove(go);
+            player.RemoveFromList(go);
             PickupPlayer pickup = FindPickup(go);
             pickup.Eliminate();
 

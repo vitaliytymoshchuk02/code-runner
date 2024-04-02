@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RagdollActivation : MonoBehaviour
 {
@@ -46,17 +45,17 @@ public class RagdollActivation : MonoBehaviour
             switch (rb.name)
             {
                 case "Stickman": rb.gameObject.GetComponent<BoxCollider>().enabled = !isActive; break;
-                case "pelvis": rb.gameObject.GetComponent<BoxCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
+                case "pelvis":   
                 case "spine_01": rb.gameObject.GetComponent<BoxCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "upperarm_l": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "lowerarm_l": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "upperarm_r": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "lowerarm_r": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "neck_01": rb.gameObject.GetComponent<SphereCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "thigh_l": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "calf_l": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
-                case "thigh_r": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
+                case "upperarm_l": 
+                case "lowerarm_l": 
+                case "upperarm_r": 
+                case "lowerarm_r":
+                case "thigh_l": 
+                case "calf_l": 
+                case "thigh_r": 
                 case "calf_r": rb.gameObject.GetComponent<CapsuleCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
+                case "neck_01": rb.gameObject.GetComponent<SphereCollider>().enabled = isActive; rb.isKinematic = !isActive; break;
                 default: Debug.Log("defaultSetRagdollActive"); break;
             }
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,7 +17,7 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if (eventData.position.x < pointerPreviousPosition.x && player.transform.position.x > leftEdge)
         {
             player.transform.position -= direction;
-            foreach(GameObject go in player._list) 
+            foreach(GameObject go in player.GetList()) 
             {
                 go.transform.position -= direction;
             }
@@ -27,7 +25,7 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if(eventData.position.x > pointerPreviousPosition.x && player.transform.position.x < rightEdge) 
         {
             player.transform.position += direction;
-            foreach (GameObject go in player._list)
+            foreach (GameObject go in player.GetList())
             {
                 go.transform.position += direction;
             }
@@ -37,11 +35,8 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("1");
-        Debug.Log(gameManager.GetState());
         if (gameManager.GetState() == GameManager.State.Pause)
         {
-            Debug.Log("2");
             gameManager.Play();
         }
         pointerPosition = eventData.position;

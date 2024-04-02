@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OnCollision : MonoBehaviour
 {
     private GameManager gameManager;
-
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-
-
     }
     private void OnCollisionEnter(Collision collision)
     {

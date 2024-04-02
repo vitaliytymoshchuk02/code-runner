@@ -256,9 +256,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailResolution: 10
-  offset: 0.5
-  localDirectionToUse: 1
-  lagTime: 0.15
 --- !u!4 &135150135
 Transform:
   m_ObjectHideFlags: 0
@@ -865,8 +862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef959598101a264eb96c288a4ce6539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 0.2
-  shakeMagnitude: 0.1
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

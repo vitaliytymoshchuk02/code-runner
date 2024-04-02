@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectCubeText : MonoBehaviour
@@ -12,7 +10,7 @@ public class CollectCubeText : MonoBehaviour
     private bool firstPointReached = false;
     private void Awake()
     {
-        FirstTargetPoint();
+        TargetPoint();
     }
     void Update()
     {
@@ -35,24 +33,21 @@ public class CollectCubeText : MonoBehaviour
             if (elapsedPercentage >= 1)
             {
                 firstPointReached = true;
-                SecondTargetPoint();
+                TargetPoint();
             }
         }
     }
-    private void FirstTargetPoint()
+    private void TargetPoint()
     {
         currentPoint = transform.position;
-        targetPoint = new Vector3(currentPoint.x, currentPoint.y + 1f, 0);
-        elapsedTime = 0f;
-
-        float distanceToPoint = Vector3.Distance(currentPoint, targetPoint);
-        timeToTargetPoint = distanceToPoint / speed;
-    }
-
-    private void SecondTargetPoint()
-    {
-        currentPoint = transform.position;
-        targetPoint = new Vector3(currentPoint.x, currentPoint.y, -40);
+        if (firstPointReached)
+        {
+            targetPoint = new Vector3(currentPoint.x, currentPoint.y, -40);
+        }
+        else
+        {
+            targetPoint = new Vector3(currentPoint.x, currentPoint.y + 1f, 0);
+        }
         elapsedTime = 0f;
 
         float distanceToPoint = Vector3.Distance(currentPoint, targetPoint);
