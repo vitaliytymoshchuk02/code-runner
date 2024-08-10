@@ -10,3 +10,6 @@
 - infinite level generation.
   
 Additionally, added camera shaking when colliding with obstacles, the effect of stacking a new cube, and the implementation of ragdoll.
+
+https://github.com/user-attachments/assets/87d57947-f082-4d96-8670-50f54646e1b2
+
